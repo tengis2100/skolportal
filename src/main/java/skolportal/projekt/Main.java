@@ -1,12 +1,19 @@
 package skolportal.projekt;
 
-import java.util.Scanner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-public class Main {
+import java.util.Scanner;
+@Component
+public class Main implements CommandLineRunner {
 
     public static Scanner input = new Scanner(System.in);
+    @Autowired
+    UsersService usersService;
 
-    public static void menu () {
+    String string = new String();
+    public  void menu () {
     System.out.println("Skapa studentkonto: tryck 1");
     System.out.println("Skapa lärarkonto: tryck 2");
 
@@ -23,6 +30,7 @@ public class Main {
     public static void createStudent () {
         System.out.println("skriv ditt mejl");
         String email = input.nextLine();
+
 
         System.out.println("skriv ditt lösenord");
         String passStudent = input.nextLine();
@@ -41,7 +49,7 @@ public class Main {
 
     }
 
-    public static void createTeacher () {
+    public  void createTeacher () {
 
         System.out.println("skriv ditt mejl");
         String email = input.nextLine();
@@ -49,8 +57,10 @@ public class Main {
         System.out.println("skriv ditt lösenord");
         String passStudent = input.nextLine();
 
-        System.out.println("Vilket/vilka program");
-        String program = input.nextLine();
+        usersService.createNewUser(email, passStudent);
+
+        // System.out.println("Vilket/vilka program");
+       // String program = input.nextLine();
 
 
     }
@@ -59,11 +69,24 @@ public class Main {
 
     }
 
-    public static void Database () {}
-    Statement stmt = null;
-    conn = mySqlDriver.getConnection(url,user,password);
-    stmt = conn.createStatment();
 
-    stmt.execute(sql);
-    String sql = "INSERT INTO schema" + "()" + "Values()";
+
+    public static void Database () {
+//        Statement stmt = null;
+//        conn = mySqlDriver.getConnection(url, user, password);
+//        stmt = conn.createStatment();
+//
+//        stmt.execute(sql);
+//        String sql = "INSERT INTO schema" + "()" + "Values()";
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println(usersService.usersRepo.findAll());
+        menu();
+       // usersService.createNewUser("fnisnif@vdsvvs.ffs", "bvhsbvjsk");
+       // usersService.changeEmail(1);
+        //2usersService.deleteUserByID(1);
+
+    }
 }

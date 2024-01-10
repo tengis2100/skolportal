@@ -1,28 +1,27 @@
 package skolportal.projekt;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table (name="users")
-public class users {
+public class Users {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     @Column
     String email;
 
     @Column
     String password;
 
-    public users(String email, String password) {
+    public Users(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public users() {
+    public Users() {
 
     }
 
@@ -42,6 +41,13 @@ public class users {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "Users{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}' +"\n";
+    }
 }
 
 

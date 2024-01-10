@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class teachers {
 
     @Id
-    @Column
+    @Column(name="teacher_id")
     int teacherId;
 
     @Column

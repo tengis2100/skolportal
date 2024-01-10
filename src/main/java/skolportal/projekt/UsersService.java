@@ -46,8 +46,6 @@ public class UsersService {
         }
     }
 
-    public static void changeValue () {
 
-    }
 
 }

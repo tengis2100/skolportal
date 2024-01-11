@@ -14,10 +14,11 @@ public class Main implements CommandLineRunner {
     @Autowired
     tidschemaRepo tidRepo;
 
+
     String string = new String();
     public  void menu () {
     System.out.println("Skapa studentkonto: tryck 1");
-    System.out.println("Skapa lärarkonto: tryck 2");
+    System.out.println("se schema: tryck 2");
 
     String text = input.nextLine();
 
@@ -25,19 +26,19 @@ public class Main implements CommandLineRunner {
     createStudent();
     }   else if (text.equals("2"))
         {
-        createTeacher();
+        schema();
         }
     }
 
-    public static void createStudent () {
-        System.out.println("skriv ditt mejl");
+    public void createStudent () {
+        System.out.println("skriv ditt mejl och lösenord");
         String email = input.nextLine();
+
 
         System.out.println("skriv ditt lösenord");
         String passStudent = input.nextLine();
 
-        System.out.println("Vilka kurser");
-        String program = input.nextLine();
+        usersService.createNewUser(email, passStudent);
 
 
 
@@ -52,30 +53,31 @@ public class Main implements CommandLineRunner {
 
     }
 
-    public  void createTeacher () {
-
-        System.out.println("skriv ditt mejl");
-        String email = input.nextLine();
-
-        System.out.println("skriv ditt lösenord");
-        String passStudent = input.nextLine();
-
-        usersService.createNewUser(email, passStudent);
-
-        // System.out.println("Vilket/vilka program");
-       // String program = input.nextLine();
 
 
-    }
+    private void schema () {
+//        System.out.println("Vilka kurser har du valt");
+//        String program = input.nextLine();
+//        System.out.println(tidRepo.getAllByCoursesName(program));
 
-    private static void borrow () {
+            System.out.println("Vilka kurser har du valt");
+            String program = input.nextLine();
 
-    }
+                if (tidRepo.getAllByCoursesName(program).contains(tidRepo.toString())) {
+                    System.out.println(tidRepo.getAllByCoursesName(program.toString()));
+                }
+                else {
+                    System.out.println("kunde inte hittas");
+                    schema();
+                }
+            }
+
+
 
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(tidRepo.getAllByCoursesName("economic "));
+         System.out.println(tidRepo.getAllByCoursesName("matte"));
         menu();
        // usersService.createNewUser("fnisnif@vdsvvs.ffs", "bvhsbvjsk");
        // usersService.changeEmail(1);

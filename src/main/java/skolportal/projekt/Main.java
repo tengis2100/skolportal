@@ -47,7 +47,28 @@ public class Main implements CommandLineRunner {
         System.out.println("skriv ditt lösenord");
         String passStudent = input.nextLine();
 
-        usersService.createNewUser(email, passStudent);
+        System.out.println("skriv hur många lektioner du har närvarat");
+        while (!input.hasNextInt()) {
+            input.nextLine();
+            System.out.println("skriv heltal");
+        }
+        int denominator = input.nextInt();
+        input.nextLine();
+
+        System.out.println("skriv hur många lektioner du har haft totalt");
+        while (!input.hasNextInt()) {
+            input.nextLine();
+            System.out.println("skriv heltal");
+        }
+        int numerator = input.nextInt();
+        input.nextLine();
+
+        double quotient = ((double) denominator)/numerator;
+        double attendance_percentage = (quotient * 100);
+        System.out.println(attendance_percentage);
+        System.out.println(quotient);
+
+        usersService.createNewUser(email, passStudent, attendance_percentage);
 
 
 
@@ -95,10 +116,7 @@ public void deleteStudent () {
                 }
             }
 
-            private void attendance () {
-                System.out.println("hur många lektioner har du haft den här terminen?");
 
-            }
 
 
 

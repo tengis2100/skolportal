@@ -18,9 +18,9 @@ public class UsersService {
 
 
     }
-    public void createNewUser(String email , String password){
+    public void createNewUser(String email , String password, double attendance_percentage){
 
-        Users newUser = new Users(email, password);
+        Users newUser = new Users(email, password, attendance_percentage);
         usersRepo.save(newUser);
 
     }

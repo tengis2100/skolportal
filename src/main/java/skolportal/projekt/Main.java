@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 @Component
 public class Main implements CommandLineRunner {
@@ -17,16 +18,24 @@ public class Main implements CommandLineRunner {
 
     String string = new String();
     public  void menu () {
-    System.out.println("Skapa studentkonto: tryck 1");
-    System.out.println("se schema: tryck 2");
+        while (true) {
+            System.out.println(" ");
+            System.out.println("Skapa studentkonto: 1");
+            System.out.println("se schema: 2");
+            System.out.println("ändra konto: 3");
+            System.out.println("radera konto: 4");
 
-    String text = input.nextLine();
+            String text = input.nextLine();
 
-    if (text.equals("1")) {
-    createStudent();
-    }   else if (text.equals("2"))
-        {
-        schema();
+            if (text.equals("1")) {
+                createStudent();
+            } else if (text.equals("2")) {
+                schema();
+            } else if (text.equals("3")) {
+                changeStudent();
+            } else if (text.equals("4")) {
+                deleteStudent();
+            }
         }
     }
 
@@ -52,7 +61,21 @@ public class Main implements CommandLineRunner {
       //  String parentMail = input.nextLine();
 
     }
+public void changeStudent () {
+    System.out.println("skriv mejladress av den du söker");
+    String email = input.nextLine();
 
+    usersService.changeEmail(email);
+
+}
+
+public void deleteStudent () {
+    System.out.println();
+    System.out.println("skriv mejladress av den du söker");
+    String email = input.nextLine();
+
+    usersService.deleteUserByEmail(email);
+}
 
 
     private void schema () {
@@ -60,11 +83,11 @@ public class Main implements CommandLineRunner {
 //        String program = input.nextLine();
 //        System.out.println(tidRepo.getAllByCoursesName(program));
 
-            System.out.println("Vilka kurser har du valt");
+            System.out.println("Vilket ämne vill du se");
             String program = input.nextLine();
-
-                if (tidRepo.getAllByCoursesName(program).contains(tidRepo.toString())) {
-                    System.out.println(tidRepo.getAllByCoursesName(program.toString()));
+                List<tidschema> Listschedule = tidRepo.getAllByCoursesName(program);
+                if (!Listschedule.isEmpty()) {
+                    System.out.println(Listschedule);
                 }
                 else {
                     System.out.println("kunde inte hittas");
@@ -72,12 +95,16 @@ public class Main implements CommandLineRunner {
                 }
             }
 
+            private void attendance () {
+                System.out.println("hur många lektioner har du haft den här terminen?");
+
+            }
 
 
 
     @Override
     public void run(String... args) throws Exception {
-         System.out.println(tidRepo.getAllByCoursesName("matte"));
+       //  System.out.println(tidRepo.getAllByCoursesName("matte"));
         menu();
        // usersService.createNewUser("fnisnif@vdsvvs.ffs", "bvhsbvjsk");
        // usersService.changeEmail(1);

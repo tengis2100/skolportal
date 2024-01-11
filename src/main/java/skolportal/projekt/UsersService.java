@@ -25,11 +25,17 @@ public class UsersService {
 
     }
 
-    public void changeEmail(long id){
-        Optional<Users> us = usersRepo.findById(id);
+    public void changeEmail(String email){
+
+        Optional<Users> us = usersRepo.findByEmail(email);
         if(us.isPresent()){
             Users user = us.get();
-            user.setEmail("newemail.cnoic");
+            System.out.println("skriv ny mejl");
+            String text = input.nextLine();
+            user.setEmail(text);
+            System.out.println("skriv ny lösenord");
+            String passtext = input.nextLine();
+            user.setPassword(passtext);
             usersRepo.save(user);
         }else{
             System.out.println("There is no such user");
@@ -46,6 +52,16 @@ public class UsersService {
         }
     }
 
+    public void deleteUserByEmail(String email){
+        Optional<Users> us = usersRepo.findByEmail(email);
+        if(us.isPresent()){
+            Users user = us.get();
+            usersRepo.delete(user);
+            System.out.println("Kontot har raderats");
+        }else{
+            System.out.println("There is no such user");
+        }
+    }
 
 
 }
